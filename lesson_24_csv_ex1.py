@@ -15,15 +15,13 @@ grade_row = []
 
 with open("students.csv", "r") as f:
     lines = f.readlines()
-    for line in lines:
-        data_row = line.split(",")
-        # filtered = line.replace("\n", "")
-        name_row.append(data_row[0])
-        age_row.append(data_row[1])
-        grade_row.append(data_row[2])
-        # print(data_row[2])
-    # for line in grade_row:
-    #     filtered = line.replace("\n"," ")
-    for i in range(1, len(name_row)):
-        print(f"{name_row[0]}: {name_row[i]},{age_row[0]}:{age_row[i]}, Grade:{grade_row[i]}")
+for line in lines:
+    data_row = line.split(",")
+    # filtered = line.replace("\n", "")
+    name_row.append(data_row[0])
+    age_row.append(data_row[1])
+    grade_row.append(data_row[2].strip())
+
+for i in range(1, len(name_row)):
+    print(f"{name_row[0]}: {name_row[i]},{age_row[0]}:{age_row[i]}, {grade_row[0]}:{grade_row[i]}")
 
