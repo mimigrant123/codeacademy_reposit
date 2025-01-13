@@ -16,9 +16,10 @@ class TankGame:
         self.direction = "up"
         self.num_of_shots = 0
         self.shots_in_directions = {"left": 0, "right": 0, "up": 0, "down": 0}
-        self.target_loc_x = randint(0, N)
-        self.target_loc_y = randint(0, N)
+        self.target_loc_x = randint(0, N - 1)
+        self.target_loc_y = randint(0, N - 1)
         self.hit_count = 0
+        self.points = 100
         while self.tank_loc_x == self.target_loc_x and self.tank_loc_y == self.target_loc_y:
             self.target_loc_x = randint(0, N)
             self.target_loc_y = randint(0, N)
@@ -53,7 +54,14 @@ class TankGame:
             print(f"{i} ", end="")
             for j in range(self.N):
                 if self.tank_loc_x == j and self.tank_loc_y == i:
-                    print(" T ", end="")
+                    if self.direction == "up":
+                        print(" ^ ", end="")
+                    elif self.direction == "down":
+                        print(" v ", end="")
+                    elif self.direction == "left":
+                        print(" < ", end="")
+                    elif self.direction == "right":
+                        print(" > ", end="")
                 elif self.target_loc_x == j and self.target_loc_y == i:
                     print(" o ", end="")
                 else:
@@ -82,48 +90,62 @@ class TankGame:
             self.direction = "up"
 
     def forward(self):
-        if self.direction == "up":
+        if self.direction == "up" and self.tank_loc_y > 0:
             self.tank_loc_y -= 1
-        elif self.direction == "right":
+            self.points -= 10
+        elif self.direction == "right" and self.tank_loc_x < self.N:
             self.tank_loc_x += 1
-        elif self.direction == "down":
+            self.points -= 10
+        elif self.direction == "down" and self.tank_loc_y < self.N:
             self.tank_loc_y += 1
-        elif self.direction == "left":
+            self.points -= 10
+        elif self.direction == "left" and self.tank_loc_x > 0:
             self.tank_loc_x -= 1
+            self.points -= 10
 
     def backward(self):
-        if self.direction == "up":
+        if self.direction == "up" and self.tank_loc_y < self.N:
             self.tank_loc_y += 1
-        elif self.direction == "right":
+            self.points -= 10
+        elif self.direction == "right" and self.tank_loc_x > 0:
             self.tank_loc_x -= 1
-        elif self.direction == "down":
+            self.points -= 10
+        elif self.direction == "down" and self.tank_loc_y > 0:
             self.tank_loc_y -= 1
-        elif self.direction == "left":
+            self.points -= 10
+        elif self.direction == "left" and self.tank_loc_x < self.N:
             self.tank_loc_x += 1
+            self.points -= 10
 
     def shoot(self):
         self.num_of_shots += 1
         self.shots_in_directions[self.direction] += 1
         if self.direction == "up" and self.tank_loc_x == self.target_loc_x and self.tank_loc_y > self.target_loc_y:
             self.hit_count += 1
+            self.points += 50
             print("Hit!")
-            self.target_loc_x = randint(0, self.N)
-            self.target_loc_y = randint(0, self.N)
+            self.target_loc_x = randint(0, self.N - 1 )
+            self.target_loc_y = randint(0, self.N - 1)
         elif self.direction == "right" and self.tank_loc_y == self.target_loc_y and self.tank_loc_x < self.target_loc_x:
             self.hit_count += 1
+            self.points += 50
             print("Hit!")
-            self.target_loc_x = randint(0, self.N)
-            self.target_loc_y = randint(0, self.N)
+            self.target_loc_x = randint(0, self.N - 1)
+            self.target_loc_y = randint(0, self.N - 1)
         elif self.direction == "down" and self.tank_loc_x == self.target_loc_x and self.tank_loc_y < self.target_loc_y:
             self.hit_count += 1
+            self.points += 50
             print("Hit!")
-            self.target_loc_x = randint(0, self.N)
-            self.target_loc_y = randint(0, self.N)
+            self.target_loc_x = randint(0, self.N - 1)
+            self.target_loc_y = randint(0, self.N - 1)
         elif self.direction == "left" and self.tank_loc_y == self.target_loc_y and self.tank_loc_x > self.target_loc_x:
             self.hit_count += 1
+            self.points += 50
             print("Hit!")
-            self.target_loc_x = randint(0, self.N)
-            self.target_loc_y = randint(0, self.N)
+            self.target_loc_x = randint(0, self.N - 1)
+            self.target_loc_y = randint(0, self.N - 1)
+
+
 
 
     def info(self):
@@ -131,6 +153,7 @@ class TankGame:
         print(f"Coordinates: {(self.tank_loc_x), self.tank_loc_y}")
         print(f"Number of shots: {self.num_of_shots}")
         print((f"Number of hits: {self.hit_count}"))
+        print((f"Points: {self.points}"))
         print(f"Shots in directions: {self.shots_in_directions}")
 
 
@@ -139,10 +162,10 @@ if __name__ == "__main__":
     # Initialize your game object
     tg = TankGame()
     # Start game loop
-    while True:
+    while tg.points > 0:
         tg.print_map()
 
-        command = input("Input a command: ")
+        command = input("Input a command (forward, backward, left, right, shoot, info): ")
         if command == "left":
             tg.steer_left()
         elif command == "right":
