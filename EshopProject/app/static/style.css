@@ -1,0 +1,50 @@
+/* In app/static/style.css */
+
+/* 1) Give the default Bootstrap carousel icons a semi‐opaque dark circle behind them */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-color: rgba(0,0,0,0.5) !important; /* semi‐dark circle */
+  border-radius: 50%;                              /* make it circular */
+  background-size: 2rem 2rem;                      /* adjust icon size if needed */
+}
+
+/* 2) (Optional) Increase the size of the clickable area */
+.carousel-control-prev,
+.carousel-control-next {
+  width: 3rem;    /* default is about 15% of the carousel; shrink it to a fixed 3rem */
+  height: 3rem;
+  top: 50%; 
+  transform: translateY(-50%);
+}
+
+/* 3) (Optional) Ensure the arrow icon itself is still visible on a dark circle */
+.carousel-control-prev-icon,
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M11.354 1.354a.5.5 0 0 1 0 .707L5.707 7.707l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0z'/%3E%3C/svg%3E") !important;
+}
+
+/* 4) (Optional) If using the “next” arrow, invert the direction of the SVG */
+.carousel-control-next-icon {
+  background-image: url("data:image/svg+xml;charset=utf8,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23fff' viewBox='0 0 16 16'%3E%3Cpath fill-rule='evenodd' d='M4.646 14.646a.5.5 0 0 1 0-.707L10.293 8 4.646 2.353a.5.5 0 0 1 .708-.708l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708 0z'/%3E%3C/svg%3E") !important;
+}
+
+
+.navbar.bg-light {
+    background-color: #3f51b5 !important; /* example: Indigo */
+    color: white !important;
+}
+
+.navbar a {
+    color: white !important;
+}
+
+.btn.btn-primary {
+    background-color: #3f51b5 !important; /* example: Indigo */
+    color: white !important;
+}
+
+.alert.alert-danger {
+  background-color: rgba(150.20.20.0) !important;
+  color: white !important;
+  border-color: darkred !important;
+}
